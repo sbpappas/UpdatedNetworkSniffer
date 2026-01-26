@@ -5,6 +5,13 @@ from datetime import datetime
 from collections import defaultdict, deque
 from typing import Dict, List, Optional, Tuple
 import sys
+import asyncio
+import warnings
+
+# Suppress "Task exception was never retrieved" warnings from pyshark's background tasks
+# These occur when interrupting live capture and are harmless
+warnings.filterwarnings('ignore', message='.*Task exception was never retrieved.*')
+warnings.filterwarnings('ignore', message='.*coroutine.*was never awaited.*')
 
 
 class SuspiciousPatternDetector:
@@ -137,11 +144,18 @@ class NetworkSniffer:
         
     def capture_live(self, interface: str = None, packet_count: int = None):
         """Capture packets from live network interface"""
+        cap = None
         try:
+            # Set up exception handler for pyshark's event loop
+            _setup_asyncio_exception_handler()
+            
             if interface:
                 cap = pyshark.LiveCapture(interface=interface)
             else:
                 cap = pyshark.LiveCapture()
+            
+            # Set exception handler again after pyshark might have created a new event loop
+            _setup_asyncio_exception_handler()
             
             print(f"[*] Starting live capture on interface: {cap.interfaces[0] if cap.interfaces else 'default'}")
             print(f"[*] Press Ctrl+C to stop\n")
@@ -154,6 +168,18 @@ class NetworkSniffer:
         except Exception as e:
             print(f"[!] Error during capture: {e}")
             sys.exit(1)
+        finally:
+            # Properly close the capture to clean up background tasks
+            # This helps prevent the "Task exception was never retrieved" warning
+            if cap is not None:
+                try:
+                    cap.close()
+                except (EOFError, OSError, AttributeError):
+                    # These exceptions are expected when closing during interrupt
+                    pass
+                except Exception:
+                    # Ignore any other cleanup errors
+                    pass
     
     def capture_from_file(self, filename: str):
         """Capture packets from a pcap file"""
@@ -277,7 +303,36 @@ class NetworkSniffer:
         print("="*60 + "\n")
 
 
+def _setup_asyncio_exception_handler():
+    """Set up asyncio exception handler to suppress expected EOFErrors from pyshark"""
+    def exception_handler(loop, context):
+        exception = context.get('exception')
+        # Suppress EOFError which is expected when interrupting pyshark capture
+        if isinstance(exception, EOFError):
+            return
+        # For other exceptions, use default handler if available
+        try:
+            default_handler = loop.default_exception_handler
+            if default_handler:
+                default_handler(context)
+        except:
+            # If no default handler, just print to stderr (but suppress EOFError)
+            if not isinstance(exception, EOFError):
+                print(f"Exception in asyncio task: {context}", file=sys.stderr)
+    
+    # Try to set handler on existing event loop
+    try:
+        loop = asyncio.get_event_loop()
+        loop.set_exception_handler(exception_handler)
+    except RuntimeError:
+        # No event loop in current thread, will be set when pyshark creates one
+        pass
+
+
 def main():
+    # Set up asyncio exception handler to suppress pyshark EOFError warnings
+    _setup_asyncio_exception_handler()
+    
     parser = argparse.ArgumentParser(
         description='Network Sniffer - Capture and analyze network traffic for suspicious patterns',
         formatter_class=argparse.RawDescriptionHelpFormatter
@@ -304,6 +359,8 @@ def main():
         if args.file:
             sniffer.capture_from_file(args.file)
         else:
+            # Set up exception handler again before live capture
+            _setup_asyncio_exception_handler()
             sniffer.capture_live(interface=args.interface, packet_count=args.count)
     except KeyboardInterrupt:
         pass

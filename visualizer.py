@@ -9,7 +9,7 @@ import sys
 
 
 def plot_protocol_distribution(stats: dict, output_file: str = None):
-    """Create a pie chart of protocol distribution"""
+    # makes a pie chart of protocols and their distribution
     protocol_dist = stats.get('protocol_distribution', {})
     if not protocol_dist:
         print("[!] No protocol data to visualize")
