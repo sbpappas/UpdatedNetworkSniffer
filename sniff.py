@@ -8,11 +8,9 @@ import sys
 import asyncio
 import warnings
 
-# Suppress "Task exception was never retrieved" warnings from pyshark's background tasks
-# These occur when interrupting live capture and are harmless
 warnings.filterwarnings('ignore', message='.*Task exception was never retrieved.*')
 warnings.filterwarnings('ignore', message='.*coroutine.*was never awaited.*')
-
+#internet says those errors are harmless to me
 
 class SuspiciousPatternDetector:
     # detect suspicious patterns in net traffic
@@ -143,7 +141,7 @@ class NetworkSniffer:
         self.start_time = datetime.now()
         
     def capture_live(self, interface: str = None, packet_count: int = None):
-        """Capture packets from live network interface"""
+        # capture packets from live network 
         cap = None
         try:
             # Set up exception handler for pyshark's event loop
