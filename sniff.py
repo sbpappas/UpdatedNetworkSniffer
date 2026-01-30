@@ -28,7 +28,7 @@ class SuspiciousPatternDetector:
         self.suspicious_events = []
         
     def analyze_packet(self, packet) -> List[Dict]:
-        """Analyze a single packet and return any suspicious events detected"""
+        # take and analyze a single packet, return any suspicious events 
         events = []
         
         if 'IP' not in packet:
