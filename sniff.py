@@ -7,4 +7,4 @@ for packet in cap:
         src = packet.ip.src
         dst = packet.ip.dst
         proto = packet.transport_layer
-        print(src, dst, proto)
+        print(src + " to " + dst + " using " + str(proto))
