@@ -1,1 +1,11 @@
-traffic.pcap
+# PCAP files are personal
+*.pcap
+*.pcapng
+
+# my local configs
+config/*.json
+
+# other python stuff
+__pycache__/
+.venv/
+.env
