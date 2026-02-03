@@ -3,7 +3,7 @@ import pyshark
 PCAP_FILE = "data/traffic.pcap"
 
 def parse_packets(pcap_file):
-    cap = pyshark.FileCapture(
+    cap = pyshark.FileCapture( # creates a packet capture object by reading from file.
         pcap_file,
         keep_packets=False
     )
@@ -13,7 +13,7 @@ def parse_packets(pcap_file):
             if "IP" not in packet:
                 continue
 
-            yield {
+            yield { #yield saves memory by generating and storing one packet at a time
                 "timestamp": packet.sniff_time,
                 "src_ip": packet.ip.src,
                 "dst_ip": packet.ip.dst,
