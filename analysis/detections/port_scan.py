@@ -2,7 +2,7 @@
 
 from collections import defaultdict
 
-def detect_port_scans(features, port_threshold=20, packet_threshold=100):
+def detect_port_scans(features, port_threshold=2, packet_threshold=2):
     # parameters:
     # features (dict): Aggregated per-IP features
     # port_threshold (int): Unique destination ports threshold, so at least x ports contacted
@@ -19,11 +19,13 @@ def detect_port_scans(features, port_threshold=20, packet_threshold=100):
                 "source_ip": ip,
                 "unique_ports": unique_ports,
                 "packets_sent": packets_sent,
-                "severity": "MEDIUM",
+                "severity": "HIGH" if unique_ports > port_threshold * 2 else "MEDIUM",
                 "description": (
                     f"Host contacted {unique_ports} unique destination ports "
                     f"with {packets_sent} packets sent."
                 )
             })
+            #TODO - tell which ports were the unique ports
+            #TODO - reference which machine this IP belongs to, if possible
 
     return alerts
