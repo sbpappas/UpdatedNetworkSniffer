@@ -1,3 +1,5 @@
+#make sure to run from the base directory NetworkSniffer
+
 from collections import defaultdict
 
 def detect_port_scans(features, port_threshold=20, packet_threshold=100):
