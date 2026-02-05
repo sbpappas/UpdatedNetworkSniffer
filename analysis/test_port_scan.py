@@ -13,7 +13,8 @@ else:
     print("⚠️ Potential port scans detected:\n")
     for alert in alerts:
         print(f"Source IP: {alert['source_ip']}")
-        print(f"  Unique ports: {alert['unique_ports']}")
+        print(f"  Number of unique ports: {alert['unique_ports']}")
+        print(f"  Which ports: {alert['which_ports']}")
         print(f"  Packets sent: {alert['packets_sent']}")
         print(f"  Severity: {alert['severity']}")
         print(f"  Description: {alert['description']}")
