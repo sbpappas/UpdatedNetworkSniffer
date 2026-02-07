@@ -1,11 +1,19 @@
 from analysis.parser import parse_packets
 from analysis.features import aggregate_by_ip
+from analysis.detections.port_scan import detect_port_scans
 from reporting.traffic_charts import plot_packets_sent_per_host
 
 packets = list(parse_packets("data/traffic.pcap"))
 features = aggregate_by_ip(packets)
 
-plot_packets_sent_per_host(features)
+alerts = detect_port_scans(
+    features,
+    port_threshold=10,      # tune as needed
+    packet_threshold=50
+)
+
+plot_packets_sent_per_host(features, alerts)
+
 
 # run with python3 -m reporting.run_dashboard
 # that allows us to run the file as a module so that the imports work correctly. 
