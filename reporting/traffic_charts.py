@@ -27,7 +27,7 @@ def plot_packets_sent_per_host(features, alerts=None):
     plt.xlabel("IP Address")
     plt.ylabel("Packets Sent")
     plt.title("Packets Sent per Host (Red = Port Scan Suspected)")
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=70)
     plt.tight_layout()
     plt.show()
 
