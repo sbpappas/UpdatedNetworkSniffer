@@ -59,12 +59,13 @@ def plot_unique_ports_per_host(features, alerts=None):
         else:
             colors.append("blue")
 
-    plt.figure()
-    plt.bar(ips, unique_ports_counts, color=colors)
-    plt.xlabel("IP Address")
-    plt.ylabel("Unique Destination Ports")
-#    plt.yaxis.set_major_locator(MaxNLocator(integer=True))
-    plt.title("Unique Destination Ports per Host (Red = Port Scan Suspected)")
-    plt.xticks(rotation=70)
+    fig, ax = plt.subplots()
+    ax.bar(ips, unique_ports_counts, color=colors)
+
+    ax.set_xlabel("IP Address")
+    ax.set_ylabel("Unique Destination Ports")
+    ax.set_title("Unique Destination Ports per Host (Red = Port Scan Suspected)")
+    ax.xaxis.set_tick_params(rotation=70)
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # makes y-axis show only integer values
     plt.tight_layout()
     plt.show()
