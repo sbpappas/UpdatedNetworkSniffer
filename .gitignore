@@ -2,6 +2,10 @@
 *.pcap
 *.pcapng
 
+# my report is personal
+*.html
+*.png
+
 # my local configs
 config/*.json
 

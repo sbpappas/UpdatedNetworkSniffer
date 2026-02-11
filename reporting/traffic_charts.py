@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
-def plot_packets_sent_per_host(features, alerts=None):
+def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save path if we want to save the chart as an image instead of showing it
     
     #Displays packets sent per IP.
     #Highlights hosts flagged by detections.
@@ -31,14 +31,19 @@ def plot_packets_sent_per_host(features, alerts=None):
     plt.title("Packets Sent per Host (Red = Port Scan Suspected)")
     plt.xticks(rotation=70)
     plt.tight_layout()
-    plt.show()
+    if save_path:
+        plt.savefig(save_path)
+    else:
+        plt.show()
+    plt.close()
+
 
 
     #TODO - add more charts, like unique ports contacted, bytes sent, etc.
     #TODO - add ability to filter by time range
     #TODO - make the chart better looking on the axes
 
-def plot_unique_ports_per_host(features, alerts=None):
+def plot_unique_ports_per_host(features, alerts=None, save_path=None):
     # Displays number of unique destination ports per IP.
     # Highlights hosts flagged by detections.
 
@@ -68,4 +73,8 @@ def plot_unique_ports_per_host(features, alerts=None):
     ax.xaxis.set_tick_params(rotation=70)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # makes y-axis show only integer values
     plt.tight_layout()
-    plt.show()
+    if save_path:
+        plt.savefig(save_path)
+    else:
+        plt.show()
+    plt.close()

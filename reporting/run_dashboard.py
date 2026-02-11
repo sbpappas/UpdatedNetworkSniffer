@@ -1,3 +1,5 @@
+# basically just shows the two charts
+
 from analysis.parser import parse_packets
 from analysis.features import aggregate_by_ip
 from analysis.detections.port_scan import detect_port_scans
