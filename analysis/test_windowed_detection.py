@@ -15,10 +15,14 @@ alerts = detect_windowed_port_scans(
     packet_threshold=30
 )
 
-for alert in alerts:
-    print(
-        f"[{alert['window_start']}] "
-        f"{alert['source_ip']} → "
-        f"{alert['unique_ports']} ports "
-        f"({alert['packets_sent']} packets)"
-    )
+if alerts:
+    for alert in alerts:
+        print(
+            f"[{alert['window_start']}] "
+            f"{alert['source_ip']} → "
+            f"{alert['unique_ports']} ports "
+            f"({alert['packets_sent']} packets)"
+        )
+else:
+    print("✅ No port scans detected in any time window.")
+

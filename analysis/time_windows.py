@@ -27,7 +27,7 @@ def aggregate_by_window(packets, window_size_seconds=30):
     windows = window_packets(packets, window_size_seconds)
     windowed_features = {}
 
-    for window_start, window_packets in windows.items():
-        windowed_features[window_start] = aggregate_by_ip(window_packets)
+    for window_start, packets_in_window in windows.items():
+        windowed_features[window_start] = aggregate_by_ip(packets_in_window)
 
     return windowed_features
