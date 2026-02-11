@@ -3,7 +3,7 @@ from collections import defaultdict
 def aggregate_by_ip(packets):
     # takes a bunch of packets and divides them by source IP
     
-    features = defaultdict(lambda: { #lamba creates a new dict for each new key so we do not have key erros
+    features = defaultdict(lambda: { #lambda creates a new dict for each new key so we do not have key erros
         "packets_sent": 0,
         "packets_received": 0,
         "bytes_sent": 0,
