@@ -37,6 +37,16 @@ def build_html_report(alerts, output_dir):
         <h2>Unique Destination Ports per Host</h2>
         <img src="unique_ports.png" width="800">
 
+        <h2>Protocol Distribution</h2>
+        <img src="protocol_distribution.png" width="600">
+
+        <h2>Packet Size Distribution</h2>
+        <img src="packet_size_distribution.png" width="800">
+
+        <h2>Bytes Sent vs Received</h2>
+        <img src="bytes_sent_received.png" width="800">
+
+
         <h2>Detected Alerts</h2>
         <table>
             <tr>

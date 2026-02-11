@@ -6,7 +6,10 @@ from analysis.time_windows import aggregate_by_window
 from analysis.detections.port_scan_windowed import detect_windowed_port_scans
 from reporting.traffic_charts import (
     plot_packets_sent_per_host,
-    plot_unique_ports_per_host
+    plot_unique_ports_per_host,
+    plot_protocol_distribution, 
+    plot_packet_size_distribution,
+    plot_bytes_sent_received
 )
 from reporting.report_builder import build_html_report
 
@@ -37,6 +40,22 @@ plot_unique_ports_per_host(
     alerts,
     save_path=os.path.join(OUTPUT_DIR, "unique_ports.png")
 )
+
+plot_protocol_distribution(
+    packets,
+    save_path=os.path.join(OUTPUT_DIR, "protocol_distribution.png")
+)
+
+plot_packet_size_distribution(
+    packets,
+    save_path=os.path.join(OUTPUT_DIR, "packet_size_distribution.png")
+)
+
+plot_bytes_sent_received(
+    features,
+    save_path=os.path.join(OUTPUT_DIR, "bytes_sent_received.png")
+)
+
 
 report_path = build_html_report(alerts, OUTPUT_DIR)
 
