@@ -43,7 +43,7 @@ def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save pa
 
     #TODO - add more charts, like unique ports contacted, bytes sent, etc.
     #TODO - add ability to filter by time range
-    #TODO - make the chart better looking on the axes
+    #TODO - make the chart better looking on the axes - done
 
 def plot_unique_ports_per_host(features, alerts=None, save_path=None):
     # Displays number of unique destination ports per IP.

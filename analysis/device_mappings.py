@@ -4,6 +4,7 @@ DEVICE_MAP = {
     "192.168.1.68": "My iPhone 13",
     "192.168.1.77": "Samsung Smart TV",
     "192.168.1.69": "My MacBook Pro",
+    "192.168.1.254": "AT&T Router",
 }
 
 def get_device_name(ip):
