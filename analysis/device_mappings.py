@@ -1,9 +1,9 @@
 # key for common device IPs
 
 DEVICE_MAP = {
-    "192.168.0.1": "Router",
-    "192.168.0.100": "Laptop 12",
-    "192.168.0.101": "Jim's Samsung Galaxy",
+    "192.168.1.68": "My iPhone 13",
+    "192.168.1.77": "Samsung Smart TV",
+    "192.168.1.69": "My MacBook Pro",
 }
 
 def get_device_name(ip):

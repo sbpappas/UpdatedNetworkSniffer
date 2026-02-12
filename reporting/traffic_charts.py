@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from collections import Counter
+from analysis.device_mappings import get_device_name
+
 
 
 def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save path if we want to save the chart as an image instead of showing it
@@ -8,7 +10,6 @@ def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save pa
     #Displays packets sent per IP.
     #Highlights hosts flagged by detections.
     
-
     alerts = alerts or []
     flagged_ips = {alert["source_ip"] for alert in alerts}
 
