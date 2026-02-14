@@ -1,4 +1,5 @@
 import pyshark
+from analysis.device_mappings import get_unknown_devices
 
 PCAP_FILE = "data/traffic.pcap"
 
@@ -10,11 +11,13 @@ def parse_packets(pcap_file):
 
     for packet in cap:
         try:
-
+            
             if "IP" not in packet:
                 continue
 
             yield { #yield saves memory by generating and storing one packet at a time
+                
+
                 "timestamp": packet.sniff_time,
                 "src_ip": packet.ip.src,
                 "dst_ip": packet.ip.dst,

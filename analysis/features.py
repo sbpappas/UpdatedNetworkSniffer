@@ -1,4 +1,6 @@
 from collections import defaultdict
+from analysis.device_mappings import get_device_name
+
 
 def aggregate_by_ip(packets):
     # takes a bunch of packets and divides them by source IP
@@ -13,6 +15,10 @@ def aggregate_by_ip(packets):
     })
 
     for pkt in packets:
+
+        get_device_name(pkt["src_ip"])
+        get_device_name(pkt["dst_ip"])
+
         src = pkt["src_ip"]
         dst = pkt["dst_ip"]
         length = pkt["length"]
