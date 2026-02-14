@@ -24,8 +24,8 @@ def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save pa
         else:
             colors.append("blue")
 
-    plt.figure()
-    plt.bar(ips, packets_sent, color=colors)
+    plt.figure(figsize=(30, 15)) 
+    plt.bar([get_device_name(ip) for ip in ips], packets_sent, color=colors)
     plt.xlabel("IP Address")
     plt.ylabel("Packets Sent")
     plt.title("Packets Sent per Host (Red = Port Scan Suspected)")

@@ -30,7 +30,7 @@ def get_device_name(ip):
 
     UNKNOWN_DEVICES[ip]["packet_count"] += 1
 
-    return f"Unknown Device ({ip})"
+    return f"{ip}" #if we do not know the device, just return the IP as the name
 
 
 def get_unknown_devices():
