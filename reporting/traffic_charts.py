@@ -24,7 +24,7 @@ def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save pa
         else:
             colors.append("blue")
 
-    plt.figure(figsize=(30, 15)) 
+    plt.figure() 
     plt.bar([get_device_name(ip) for ip in ips], packets_sent, color=colors)
     plt.xlabel("IP Address")
     plt.ylabel("Packets Sent")
@@ -65,7 +65,7 @@ def plot_unique_ports_per_host(features, alerts=None, save_path=None):
             colors.append("blue")
 
     fig, ax = plt.subplots()
-    ax.bar(ips, unique_ports_counts, color=colors)
+    ax.bar([get_device_name(ip) for ip in ips], unique_ports_counts, color=colors)
 
     ax.set_xlabel("IP Address")
     ax.set_ylabel("Unique Destination Ports")
