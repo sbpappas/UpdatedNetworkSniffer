@@ -8,5 +8,29 @@ DEVICE_MAP = {
     "192.168.1.72": "Dell Work Laptop",
 }
 
+
+UNKNOWN_DEVICES = {}
+
 def get_device_name(ip):
-    return DEVICE_MAP.get(ip, f"Unknown Device ({ip})")
+    
+    """Returns friendly device name.
+    Tracks unknown devices automatically.
+    """
+
+    if ip in DEVICE_MAP:
+        return DEVICE_MAP[ip]
+
+    # Track unknown device
+    if ip not in UNKNOWN_DEVICES:
+        UNKNOWN_DEVICES[ip] = {
+            "first_seen": datetime.now(),
+            "packet_count": 0
+        }
+
+    UNKNOWN_DEVICES[ip]["packet_count"] += 1
+
+    return f"Unknown Device ({ip})"
+
+
+def get_unknown_devices():
+    return UNKNOWN_DEVICES

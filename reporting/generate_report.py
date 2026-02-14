@@ -4,6 +4,9 @@ import os
 from analysis.parser import parse_packets
 from analysis.time_windows import aggregate_by_window
 from analysis.detections.port_scan_windowed import detect_windowed_port_scans
+from analysis.device_mappings import get_unknown_devices
+
+
 from reporting.traffic_charts import (
     plot_packets_sent_per_host,
     plot_unique_ports_per_host,
@@ -56,7 +59,12 @@ plot_bytes_sent_received(
     save_path=os.path.join(OUTPUT_DIR, "bytes_sent_received.png")
 )
 
+unknown_devices = get_unknown_devices()
 
-report_path = build_html_report(alerts, OUTPUT_DIR)
+
+
+#build_html_report(alerts, unknown_devices, OUTPUT_DIR)
+
+report_path = build_html_report(alerts, unknown_devices, OUTPUT_DIR)
 
 print(f"\nReport generated: {report_path}")

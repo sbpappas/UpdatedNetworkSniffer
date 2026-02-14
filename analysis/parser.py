@@ -10,6 +10,7 @@ def parse_packets(pcap_file):
 
     for packet in cap:
         try:
+
             if "IP" not in packet:
                 continue
 
