@@ -13,9 +13,8 @@ UNKNOWN_DEVICES = {}
 
 def get_device_name(ip):
     
-    """Returns friendly device name.
-    Tracks unknown devices automatically.
-    """
+    # returns friendly device name.
+    # tracks unknown devices automatically.
 
     if ip in DEVICE_MAP:
         return DEVICE_MAP[ip]
