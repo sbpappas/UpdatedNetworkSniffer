@@ -29,7 +29,7 @@ def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save pa
     plt.xlabel("IP Address")
     plt.ylabel("Packets Sent")
     plt.title("Packets Sent per Host (Red = Port Scan Suspected)")
-    plt.xticks(rotation=70)
+    plt.xticks(rotation=90)
     plt.tight_layout()
     if save_path:
         plt.savefig(save_path)
@@ -70,7 +70,7 @@ def plot_unique_ports_per_host(features, alerts=None, save_path=None):
     ax.set_xlabel("IP Address")
     ax.set_ylabel("Unique Destination Ports")
     ax.set_title("Unique Destination Ports per Host (Red = Port Scan Suspected)")
-    ax.xaxis.set_tick_params(rotation=70)
+    ax.xaxis.set_tick_params(rotation=90)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # makes y-axis show only integer values
     plt.tight_layout()
     if save_path:
@@ -136,7 +136,7 @@ def plot_bytes_sent_received(features, save_path=None):
     plt.bar(x, sent, label="Bytes Sent")
     plt.bar(x, received, bottom=sent, label="Bytes Received")
 
-    plt.xticks(x, ips, rotation=70)
+    plt.xticks(x, ips, rotation=90)
     plt.ylabel("Bytes")
     plt.title("Bytes Sent vs Received per Host")
     plt.legend()

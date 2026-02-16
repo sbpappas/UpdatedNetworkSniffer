@@ -54,19 +54,19 @@ def build_html_report(alerts, unknown_devices, output_dir):
         <p>Generated: {datetime.now()}</p>
 
         <h2>Packets Sent per Host</h2>
-        <img src="packets_per_host.png" width="800">
+        <img src="packets_per_host.png" width="1200">
 
         <h2>Unique Destination Ports per Host</h2>
-        <img src="unique_ports.png" width="800">
+        <img src="unique_ports.png" width="1200">
 
         <h2>Protocol Distribution</h2>
-        <img src="protocol_distribution.png" width="600">
+        <img src="protocol_distribution.png" width="1200">
 
         <h2>Packet Size Distribution</h2>
-        <img src="packet_size_distribution.png" width="800">
+        <img src="packet_size_distribution.png" width="1200">
 
         <h2>Bytes Sent vs Received</h2>
-        <img src="bytes_sent_received.png" width="800">
+        <img src="bytes_sent_received.png" width="1200">
 
         <h2>⚠ Unknown Devices Detected</h2>
         <table>
