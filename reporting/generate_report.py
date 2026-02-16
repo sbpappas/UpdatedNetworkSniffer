@@ -5,7 +5,9 @@ from analysis.parser import parse_packets
 from analysis.time_windows import aggregate_by_window
 from analysis.detections.port_scan_windowed import detect_windowed_port_scans
 from analysis.device_mappings import get_unknown_devices
-
+from attackDetection.beaconing import detect_beaconing
+from attackDetection.exfiltration import detect_data_exfiltration
+from analysis.features import aggregate_by_ip
 
 from reporting.traffic_charts import (
     plot_packets_sent_per_host,
@@ -28,8 +30,6 @@ alerts = detect_windowed_port_scans(
     packet_threshold=30
 )
 
-# for visualization, aggregate full dataset
-from analysis.features import aggregate_by_ip
 features = aggregate_by_ip(packets)
 
 plot_packets_sent_per_host(
@@ -58,6 +58,12 @@ plot_bytes_sent_received(
     features,
     save_path=os.path.join(OUTPUT_DIR, "bytes_sent_received.png")
 )
+
+beacon_alerts = detect_beaconing(packets)
+exfil_alerts = detect_data_exfiltration(features)
+
+all_alerts = alerts + beacon_alerts + exfil_alerts
+
 
 unknown_devices = get_unknown_devices()
 
