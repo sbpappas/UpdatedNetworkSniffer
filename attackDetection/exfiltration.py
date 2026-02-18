@@ -11,7 +11,7 @@ def detect_data_exfiltration(features):
 
     for ip, data in features.items():
 
-        if data["bytes_sent"] > avg_outbound * 3:
+        if data["bytes_sent"] > avg_outbound * 3: #kinda arbitrary
             alerts.append({
                 "type": "DATA_EXFILTRATION",
                 "source_ip": ip,
