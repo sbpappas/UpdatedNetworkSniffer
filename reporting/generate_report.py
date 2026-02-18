@@ -70,6 +70,7 @@ unknown_devices = get_unknown_devices()
 
 #build_html_report(alerts, unknown_devices, OUTPUT_DIR)
 
-report_path = build_html_report(alerts, unknown_devices, OUTPUT_DIR)
+report_path = build_html_report(all_alerts, unknown_devices, OUTPUT_DIR)
+#report_path = build_html_report(alerts, unknown_devices, OUTPUT_DIR)
 
 print(f"\nReport generated: {report_path}")

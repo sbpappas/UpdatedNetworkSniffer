@@ -7,16 +7,33 @@ def build_html_report(alerts, unknown_devices, output_dir):
     html_path = os.path.join(output_dir, "report.html")
 
     alert_rows = ""
-    for alert in alerts:
+
+    for alert in alerts: #might want to make the if else blocks a function at some point
+
+        alert_type = alert.get("type", "UNKNOWN")
+
+        if alert_type == "PORT_SCAN":
+            details = f"Unique Ports: {alert['unique_ports']} | Packets: {alert['packets_sent']}"
+
+        elif alert_type == "BEACONING":
+            details = f"Connections: {alert['connection_count']} | Interval StdDev: {alert['interval_std_dev']}"
+
+        elif alert_type == "DATA_EXFILTRATION":
+            details = f"Bytes Sent: {alert['bytes_sent']} | Avg Baseline: {alert['average_bytes_sent']}"
+
+        else:
+            details = "N/A"
+
         alert_rows += f"""
         <tr>
-            <td>{alert.get('window_start', 'N/A')}</td>
+            <td>{alert_type}</td>
             <td>{get_device_name(alert['source_ip'])}</td>
-            <td>{alert['unique_ports']}</td>
-            <td>{alert['packets_sent']}</td>
+            <td>{alert.get('destination_ip', 'N/A')}</td>
+            <td>{details}</td>
             <td>{alert['severity']}</td>
         </tr>
         """
+
 
     if not alert_rows:
         alert_rows = "<tr><td colspan='5'>No alerts detected</td></tr>"
@@ -81,12 +98,13 @@ def build_html_report(alerts, unknown_devices, output_dir):
         <h2>Detected Alerts</h2>
         <table>
             <tr>
-                <th>Window</th>
+                <th>Type</th>
                 <th>Source Device</th>
-                <th>Unique Ports</th>
-                <th>Packets Sent</th>
+                <th>Destination</th>
+                <th>Details</th>
                 <th>Severity</th>
             </tr>
+
             {alert_rows}
         </table>
 
