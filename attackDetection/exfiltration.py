@@ -1,5 +1,5 @@
 def detect_data_exfiltration(features):
-    # detect hosts sending at ton of outbound traffic
+    # detect hosts sending disproportionally large amounts of outbound traffic
 
     alerts = []
 
