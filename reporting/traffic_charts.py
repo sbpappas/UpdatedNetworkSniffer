@@ -92,12 +92,11 @@ def plot_protocol_distribution(packets, save_path=None):
     plt.figure()
     plt.pie(sizes, labels=labels, autopct='%1.1f%%')
     plt.title("Protocol Distribution")
-
+    
     if save_path:
         plt.savefig(save_path)
     else:
         plt.show()
-
     plt.close()
 
 def plot_packet_size_distribution(packets, save_path=None):
