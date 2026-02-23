@@ -1,6 +1,10 @@
-from parser import parse_packets
-from features import aggregate_by_ip
-from device_mappings import get_device_name
+# from parser import parse_packets
+# from features import aggregate_by_ip
+# from device_mappings import get_device_name
+
+from analysis.parser import parse_packets
+from analysis.features import aggregate_by_ip
+from analysis.device_mappings import get_device_name
 
 packets = list(parse_packets("data/traffic.pcap"))
 features = aggregate_by_ip(packets)

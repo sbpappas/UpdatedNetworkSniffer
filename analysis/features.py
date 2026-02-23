@@ -1,6 +1,7 @@
 from collections import defaultdict
 from analysis.device_mappings import get_device_name
 
+# run with 
 
 def aggregate_by_ip(packets):
     # takes a bunch of packets and divides them by source IP
