@@ -2,8 +2,11 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from collections import Counter
 from analysis.device_mappings import get_device_name
+from analysis.ip_lookup import get_ip_label
 
-def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save path if we want to save the chart as an image instead of showing it
+
+def plot_packets_sent_per_host(features, alerts=None, display_mode="ip", save_path=None):
+ # save path if we want to save the chart as an image instead of showing it
     
     #Displays packets sent per IP.
     #Highlights hosts flagged by detections.
@@ -24,8 +27,20 @@ def plot_packets_sent_per_host(features, alerts=None, save_path=None): # save pa
         else:
             colors.append("blue")
 
+    labels = []
+
+    for ip in ips:
+        if display_mode == "device":
+            labels.append(get_device_name(ip))
+
+        elif display_mode == "hostname":
+            labels.append(get_ip_label(ip, mode="hostname"))
+
+        else:  # default = raw IP
+            labels.append(ip)
     plt.figure() 
-    plt.bar([get_device_name(ip) for ip in ips], packets_sent, color=colors)
+    plt.bar(labels, packets_sent, color=colors)
+
     plt.xlabel("IP Address")
     plt.ylabel("Packets Sent")
     plt.title("Packets Sent per Host (Red = Port Scan Suspected)")

@@ -35,6 +35,7 @@ features = aggregate_by_ip(packets)
 plot_packets_sent_per_host(
     features,
     alerts,
+    display_mode="hostname",
     save_path=os.path.join(OUTPUT_DIR, "packets_per_host.png")
 )
 
