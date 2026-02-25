@@ -1,4 +1,6 @@
-from parser import parse_packets
+from analysis.parser import parse_packets
+
+# run with python3 -m analysis.test_parser
 
 count = 0
 

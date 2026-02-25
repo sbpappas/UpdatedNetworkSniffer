@@ -1,6 +1,4 @@
-# from parser import parse_packets
-# from features import aggregate_by_ip
-# from device_mappings import get_device_name
+# run with python3 -m analysis.test_features
 
 from analysis.parser import parse_packets
 from analysis.features import aggregate_by_ip
