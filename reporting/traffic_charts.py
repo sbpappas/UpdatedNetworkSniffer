@@ -38,14 +38,19 @@ def plot_packets_sent_per_host(features, alerts=None, display_mode="ip", save_pa
 
         else:  # default = raw IP
             labels.append(ip)
-    plt.figure() 
+    plt.figure(figsize=(12, 6))  # Increase width + height
     plt.bar(labels, packets_sent, color=colors)
 
-    plt.xlabel("IP Address")
+    plt.xlabel("Host")
     plt.ylabel("Packets Sent")
-    plt.title("Packets Sent per Host (Red = Port Scan Suspected)")
-    plt.xticks(rotation=90)
+    plt.title("Packets Sent per Host (Red = Alert Triggered)")
+
+    plt.xticks(rotation=45, ha="right")  # rotate + align right
+
+    plt.subplots_adjust(bottom=0.3)  # Increase bottom margin
+
     plt.tight_layout()
+
     if save_path:
         plt.savefig(save_path)
     else:
